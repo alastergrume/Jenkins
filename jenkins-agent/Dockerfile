@@ -3,7 +3,7 @@ FROM jenkins/ssh-agent:jdk21
 USER root
 
 # Install docker-cli and docker-compose plugin
-# rclone — копии бакетов S3 (Jenkinsfile.backup репозитория Ansible)
+# rclone — копии бакетов S3 (backup.jenkinsfile репозитория Ansible)
 RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates curl gnupg git openssh-client ansible sshpass rclone \
  && install -m 0755 -d /etc/apt/keyrings \
