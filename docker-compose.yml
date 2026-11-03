@@ -29,14 +29,16 @@ services:
       cert-init:
         condition: service_completed_successfully
     restart: on-failure
+    # Only via the host's nginx (README, step 6); the agent is launched over SSH, so no 50000
     ports:
-      - "8081:8080"
-      - "50000:50000"
+      - "127.0.0.1:8081:8080"
     volumes:
       - jenkins_home:/var/jenkins_home
       - jenkins-cacerts:/cacerts:ro
     environment:
       JAVA_OPTS: "-Djavax.net.ssl.trustStore=/cacerts/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+      # Served under /jenkins/ behind the reverse proxy
+      JENKINS_OPTS: "--prefix=/jenkins"
 
   # Jenkins agent container
   jenkins-agent:

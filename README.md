@@ -80,3 +80,15 @@ docker compose exec -u jenkins jenkins-agent docker version
 
 На встроенном узле контроллера (*Built-In Node*) поставить **Number of
 executors = 0** — тогда сборки на контроллере не пойдут вовсе.
+
+## 6. Доступ
+
+Jenkins слушает только `127.0.0.1:8081` и работает по пути `/jenkins/`
+(`JENKINS_OPTS=--prefix=/jenkins`), из сети к нему напрямую не попасть. Снаружи — через
+nginx на IvanLab (TLS, имена), тот — на nginx хоста по 80-му порту, который пускает только
+IvanLab и передаёт дальше на `127.0.0.1:8081`:
+
+- `https://ivanlab.dolly-kochab.ts.net/jenkins/` — через Tailscale;
+- `https://jenkins.ivanlab.local/jenkins/` — в локальной сети, по hosts на IvanLab.
+
+*Manage Jenkins → System → Jenkins URL* — `https://ivanlab.dolly-kochab.ts.net/jenkins/`.

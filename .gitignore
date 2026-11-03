@@ -2,3 +2,4 @@
 custom-certs/
 jenkins-agent/jenkins_agent_key
 jenkins-agent/jenkins_agent_key.pub
+.idea
